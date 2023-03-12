@@ -1,0 +1,16 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 64px;
+  margin: 32px;
+  background-color: white;
+  border-radius: 15px;
+}
+
+.btnBox {
+  margin-top: 30px;
+  display: flex;
+  align-self: center;
+}
