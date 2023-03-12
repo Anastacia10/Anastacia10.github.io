@@ -16,16 +16,20 @@ code {
 ::-webkit-input-placeholder {
   /* WebKit browsers */
   color: rgb(26, 44, 102);
+  font-size: 16px;
 }
 :-moz-placeholder {
   /* Mozilla Firefox 4 to 18 */
   color: rgb(26, 44, 102);
+  font-size: 16px;
 }
 ::-moz-placeholder {
   /* Mozilla Firefox 19+ */
   color: rgb(26, 44, 102);
+  font-size: 16px;
 }
 :-ms-input-placeholder {
   /* Internet Explorer 10+ */
   color: rgb(26, 44, 102);
+  font-size: 16px;
 }

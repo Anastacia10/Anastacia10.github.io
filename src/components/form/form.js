@@ -8,59 +8,68 @@ const UI_FIELDS = [
   {
     name: "name",
     type: "text",
-    placeholder: "Enter your name",
+    placeholder: "Введи свое имя",
+    russianName: "Имя",
   },
   {
     name: "surname",
     type: "text",
-    placeholder: "Enter your surname",
+    placeholder: "Введи свою фамилию",
+    russianName: "Фамилия",
   },
   {
-    name: "date_Of_Birth",
+    name: "dateOfBirth",
     type: "date",
-    placeholder: "Enter Your date of birth",
+    placeholder: "Введи свою дату рождения",
+    russianName: "Дата рождения",
   },
   {
     name: "phone",
     type: "tel",
-    placeholder: "Enter your phone number",
+    placeholder: "Введи номер телефона",
+    russianName: "Номер телефона",
   },
   {
     name: "site",
     type: "url",
-    placeholder: "Your site's link",
+    placeholder: "Введи адрес сайта",
+    russianName: "Ссылка на сайт",
   },
   {
     name: "description",
     type: "textarea",
-    placeholder: "Please, describe yourself (No more than 200 symbols)",
+    placeholder: "Расскажи о себе.",
     rows: 7,
+    russianName: "О себе",
+    maxlength: 200,
   },
   {
-    name: "tech_Stack",
+    name: "techStack",
     type: "textarea",
-    placeholder:
-      "Please, describe your technical skills (No more than 200 symbols)",
+    placeholder: "Названия технологий, которыми владеешь.",
     rows: 7,
+    maxlength: 200,
+    russianName: "Стек технологий",
   },
   {
-    name: "last_Project_Description",
+    name: "lastProjectDescription",
     type: "textarea",
-    placeholder:
-      "Please, tell us about your last project (No more than 200 symbols)",
+    placeholder: `Опиши свой последний проект.`,
     rows: 7,
+    maxlength: 200,
+    russianName: "Описание последнего проекта",
   },
 ];
 
 const DEFAULT_DATA = {
   name: "",
   surname: "",
-  date_Of_Birth: "",
+  dateOfBirth: "",
   phone: "",
   site: "",
   description: "",
-  tech_Stack: "",
-  last_Project_Description: "",
+  techStack: "",
+  lastProjectDescription: "",
 };
 
 export default class Form extends Component {
@@ -115,17 +124,18 @@ export default class Form extends Component {
     });
     return (
       <form className={styles.form}>
+        <h2>Создание анкеты</h2>
         {elememts}
         <div className={styles.btnBox}>
           <FormButton
             name="submit"
             onClickHandler={this.onClickHandler}
-            value="Save"
+            value="Сохранить"
           ></FormButton>
           <FormButton
             name="reset"
             onClickHandler={this.onClickHandler}
-            value="Cancel"
+            value="Отмена"
           ></FormButton>
         </div>
       </form>

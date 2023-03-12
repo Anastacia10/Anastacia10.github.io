@@ -3,15 +3,19 @@ import styles from "./form-textarea.module.css";
 
 export default class FormTextarea extends Component {
   render() {
-    const { name, placeholder, rows, value, onChangeHandler } = this.props;
+    const {
+      name,
+      placeholder,
+      rows,
+      maxlength,
+      value,
+      onChangeHandler,
+      russianName,
+    } = this.props;
     const { label, textarea } = styles;
-    const newLabel = name
-      .split("_")
-      .map((el) => el.toUpperCase())
-      .join(" ");
     return (
       <label htmlFor={name} className={label}>
-        {newLabel}
+        {russianName}
         <textarea
           className={textarea}
           name={name}
@@ -20,7 +24,7 @@ export default class FormTextarea extends Component {
           placeholder={placeholder}
           onChange={onChangeHandler}
           value={value}
-          maxLength="200"
+          maxLength={maxlength}
         ></textarea>
       </label>
     );

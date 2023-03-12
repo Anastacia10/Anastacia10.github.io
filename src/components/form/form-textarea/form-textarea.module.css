@@ -1,3 +1,7 @@
+h2 {
+  color: rgb(26, 44, 102);
+  font-size: 24px;
+}
 .textarea {
   width: 100%;
   margin-bottom: 16px;
