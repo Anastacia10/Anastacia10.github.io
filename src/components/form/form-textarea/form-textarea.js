@@ -25,7 +25,7 @@ export default class FormTextarea extends Component {
           onChange={onChangeHandler}
           value={value}
           maxLength={maxlength}
-        ></textarea>
+        />
       </label>
     );
   }

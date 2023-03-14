@@ -4,6 +4,17 @@ import FormInput from "./form-input/form-input.js";
 import FormTextarea from "./form-textarea/form-textarea.js";
 import FormButton from "./form-btn/form-btn.js";
 
+const DEFAULT_DATA = {
+  name: "",
+  surname: "",
+  dateOfBirth: "",
+  phone: "",
+  site: "",
+  description: "",
+  techStack: "",
+  lastProjectDescription: "",
+};
+
 const UI_FIELDS = [
   {
     name: "name",
@@ -61,22 +72,10 @@ const UI_FIELDS = [
   },
 ];
 
-const DEFAULT_DATA = {
-  name: "",
-  surname: "",
-  dateOfBirth: "",
-  phone: "",
-  site: "",
-  description: "",
-  techStack: "",
-  lastProjectDescription: "",
-};
-
 export default class Form extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      fields: UI_FIELDS,
       data: { ...DEFAULT_DATA },
     };
   }
@@ -101,8 +100,8 @@ export default class Form extends Component {
     }
   };
   render() {
-    const { fields, data } = this.state;
-    const elememts = fields.map((fieldProps) => {
+    const { data } = this.state;
+    const elememts = UI_FIELDS.map((fieldProps) => {
       const props = { ...fieldProps, value: data[fieldProps.name] };
       if (fieldProps.type === "textarea") {
         return (
@@ -110,7 +109,7 @@ export default class Form extends Component {
             {...props}
             key={fieldProps.name}
             onChangeHandler={this.onChangeHandler}
-          ></FormTextarea>
+          />
         );
       } else {
         return (
@@ -118,7 +117,7 @@ export default class Form extends Component {
             {...props}
             key={fieldProps.name}
             onChangeHandler={this.onChangeHandler}
-          ></FormInput>
+          />
         );
       }
     });
@@ -131,12 +130,12 @@ export default class Form extends Component {
             name="submit"
             onClickHandler={this.onClickHandler}
             value="Сохранить"
-          ></FormButton>
+          />
           <FormButton
             name="reset"
             onClickHandler={this.onClickHandler}
             value="Отмена"
-          ></FormButton>
+          />
         </div>
       </form>
     );
