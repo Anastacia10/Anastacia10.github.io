@@ -1,0 +1,37 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 64px;
+  margin: 32px;
+  background-color: white;
+  border-radius: 15px;
+}
+
+.container div {
+  display: flex;
+  flex-direction: column;
+}
+
+.container h2 {
+  width: 100%;
+  color: rgb(26, 44, 102);
+  font-size: 30px;
+}
+
+.container h3 {
+  width: 100%;
+  color: rgb(24, 45, 112);
+  font-size: 20px;
+}
+
+.container button {
+  align-self: center;
+  margin-top: 24px;
+}
+
+.answer {
+  width: 100%;
+  color: rgb(22, 33, 67);
+}

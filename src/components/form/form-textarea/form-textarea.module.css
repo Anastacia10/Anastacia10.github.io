@@ -1,18 +1,38 @@
-h2 {
-  color: rgb(26, 44, 102);
-  font-size: 24px;
-}
-.textarea {
-  width: 100%;
-  margin-bottom: 16px;
-  color: rgb(26, 44, 102);
-  font-size: 24px;
-  resize: none;
-}
-
-.label {
+label {
+  display: flex;
+  flex-direction: column;
   width: 100%;
   margin-bottom: 16px;
   color: rgb(26, 44, 102);
   font-size: 20px;
+}
+textarea {
+  width: 100%;
+  margin-bottom: 8px;
+  color: rgb(26, 44, 102);
+  font-size: 24px;
+  resize: none;
+  border: 2px groove rgb(26, 44, 102);
+  outline: none;
+}
+
+textarea:focus {
+  border: 2px solid #379bc6;
+}
+
+span {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.alarm {
+  color: rgb(219, 11, 11);
+}
+
+.invalid {
+  border-color: rgb(219, 11, 11);
+}
+
+.invalid:focus {
+  border-color: rgb(219, 11, 11);
 }

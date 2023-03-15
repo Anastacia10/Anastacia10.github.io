@@ -1,18 +1,48 @@
-.input {
+input {
   width: 100%;
   height: 40px;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
   color: rgb(26, 44, 102);
   font-size: 18px;
-  border-color: rgb(26, 44, 102);
+  border: 2px solid rgb(26, 44, 102);
   border-radius: 10px;
   padding-left: 10px;
   padding-right: 10px;
 }
 
-.label {
+input:focus {
+  outline: none;
+}
+
+label {
+  position: relative;
   width: 100%;
-  margin-top: 16px;
   color: rgb(26, 44, 102);
   font-size: 20px;
+}
+
+.messageField {
+  position: absolute;
+  top: 74px;
+  font-size: 16px;
+  width: 100%;
+  height: 20px;
+  margin: 0px;
+  color: rgb(219, 11, 11);
+}
+
+.valid {
+  border-color: rgb(26, 44, 102);
+}
+
+.valid:focus {
+  border: 2px solid #379bc6;
+}
+
+.invalid {
+  border-color: rgb(219, 11, 11);
+}
+
+.invalid:focus {
+  border: 2px groove rgb(219, 11, 11);
 }
