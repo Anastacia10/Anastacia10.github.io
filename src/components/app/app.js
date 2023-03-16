@@ -5,8 +5,8 @@ import {
   isValid,
   getNewInvalidList,
   isAllFieldsWasFilled,
-  getMaskedValue,
 } from "../../tools/validationForm.js";
+import { getMaskedValue } from "../../tools/getMaskedValue";
 import Form from "../form/form.js";
 import InfoPanel from "../infoPanel/infoPanel.js";
 
