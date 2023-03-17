@@ -43,9 +43,9 @@ const UI_FIELDS = [
   {
     name: "site",
     type: "url",
-    placeholder: "Например: http://pupkin.com",
+    placeholder: "Например: https://pupkin.com",
     russianName: "Ссылка на сайт",
-    alarmText: "Адрес сайта начинается с http:// ",
+    alarmText: "Адрес сайта начинается с https:// ",
   },
   {
     name: "description",
@@ -114,27 +114,27 @@ class App extends Component {
     });
   };
 
-  onClickHandler = (e, pageName = "form") => {
+  onClickHandler = (e) => {
     e.preventDefault();
     const name = e.target.name;
     const { invalidList, data } = this.state;
     if (name === "submit") {
       if (invalidList.length === 0 && isAllFieldsWasFilled(data)) {
-        this.setState(({ data }) => ({
+        this.setState({
           pageName: "infoPanel",
-        }));
+        });
       } else {
         this.setState(({ data }) => ({
           focus: data[0],
         }));
       }
     } else if (name === "reset") {
-      this.setState((state) => ({
+      this.setState({
         data: { ...DEFAULT_STATE },
         invalidList: [],
         focus: "",
         pageName: "form",
-      }));
+      });
     }
   };
 

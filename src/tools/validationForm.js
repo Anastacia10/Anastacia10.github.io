@@ -19,13 +19,18 @@ const isValidSite = (value) => {
 };
 
 const isValidTextarea = (value) => {
-  return value.length <= 600 && value.length !== 0 ? true : false;
+  const array = value.split(" ");
+  const isValidLength = array.every((word) => word.length < 37);
+
+  return value.length <= 600 && value.length !== 0 && isValidLength
+    ? true
+    : false;
 };
 
 export const isValid = (nameField, value) => {
   let result = true;
   switch (nameField) {
-    case "name" || "surname":
+    case "name":
       result = isFirstCharBig(value);
       break;
     case "surname":
