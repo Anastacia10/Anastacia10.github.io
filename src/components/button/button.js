@@ -1,7 +1,7 @@
 import { Component } from "react";
-import styles from "./form-btn.module.css";
+import styles from "./button.module.css";
 
-export default class FormButton extends Component {
+export default class Button extends Component {
   render() {
     const { name, value, onClickHandler } = this.props;
     return (

@@ -2,113 +2,21 @@ import { Component } from "react";
 import styles from "./form.module.css";
 import FormInput from "./form-input/form-input.js";
 import FormTextarea from "./form-textarea/form-textarea.js";
-import FormButton from "./form-btn/form-btn.js";
-
-const DEFAULT_DATA = {
-  name: "",
-  surname: "",
-  dateOfBirth: "",
-  phone: "",
-  site: "",
-  description: "",
-  techStack: "",
-  lastProjectDescription: "",
-};
-
-const UI_FIELDS = [
-  {
-    name: "name",
-    type: "text",
-    placeholder: "Введи свое имя",
-    russianName: "Имя",
-  },
-  {
-    name: "surname",
-    type: "text",
-    placeholder: "Введи свою фамилию",
-    russianName: "Фамилия",
-  },
-  {
-    name: "dateOfBirth",
-    type: "date",
-    placeholder: "Введи свою дату рождения",
-    russianName: "Дата рождения",
-  },
-  {
-    name: "phone",
-    type: "tel",
-    placeholder: "Введи номер телефона",
-    russianName: "Номер телефона",
-  },
-  {
-    name: "site",
-    type: "url",
-    placeholder: "Введи адрес сайта",
-    russianName: "Ссылка на сайт",
-  },
-  {
-    name: "description",
-    type: "textarea",
-    placeholder: "Расскажи о себе.",
-    rows: 7,
-    russianName: "О себе",
-    maxlength: 200,
-  },
-  {
-    name: "techStack",
-    type: "textarea",
-    placeholder: "Названия технологий, которыми владеешь.",
-    rows: 7,
-    maxlength: 200,
-    russianName: "Стек технологий",
-  },
-  {
-    name: "lastProjectDescription",
-    type: "textarea",
-    placeholder: `Опиши свой последний проект.`,
-    rows: 7,
-    maxlength: 200,
-    russianName: "Описание последнего проекта",
-  },
-];
-
+import Button from "../button/button.js";
 export default class Form extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: { ...DEFAULT_DATA },
-    };
-  }
-
-  onChangeHandler = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    this.setState(({ data }) => ({
-      data: { ...data, [name]: value },
-    }));
-  };
-
-  onClickHandler = (e) => {
-    e.preventDefault();
-    const name = e.target.name;
-    if (name === "submit") {
-      console.log(this.state.data);
-    } else if (name === "reset") {
-      this.setState({
-        data: { ...DEFAULT_DATA },
-      });
-    }
-  };
   render() {
-    const { data } = this.state;
-    const elememts = UI_FIELDS.map((fieldProps) => {
+    const { data, invalidList, onChangeHandler, onClickHandler, fields } =
+      this.props;
+    const elememts = fields.map((fieldProps) => {
+      let isInvalidField = invalidList.includes(fieldProps.name);
       const props = { ...fieldProps, value: data[fieldProps.name] };
       if (fieldProps.type === "textarea") {
         return (
           <FormTextarea
             {...props}
             key={fieldProps.name}
-            onChangeHandler={this.onChangeHandler}
+            isInvalidField={isInvalidField}
+            onChangeHandler={onChangeHandler}
           />
         );
       } else {
@@ -116,7 +24,8 @@ export default class Form extends Component {
           <FormInput
             {...props}
             key={fieldProps.name}
-            onChangeHandler={this.onChangeHandler}
+            isInvalidField={isInvalidField}
+            onChangeHandler={onChangeHandler}
           />
         );
       }
@@ -126,16 +35,12 @@ export default class Form extends Component {
         <h2>Создание анкеты</h2>
         {elememts}
         <div className={styles.btnBox}>
-          <FormButton
+          <Button
             name="submit"
-            onClickHandler={this.onClickHandler}
+            onClickHandler={onClickHandler}
             value="Сохранить"
           />
-          <FormButton
-            name="reset"
-            onClickHandler={this.onClickHandler}
-            value="Отмена"
-          />
+          <Button name="reset" onClickHandler={onClickHandler} value="Отмена" />
         </div>
       </form>
     );
