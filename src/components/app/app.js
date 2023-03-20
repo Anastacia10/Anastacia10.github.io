@@ -1,5 +1,5 @@
 import "./app.module.css";
-import { Component } from "react";
+import { useState } from "react";
 import styles from "./app.module.css";
 import {
   isValid,
@@ -7,8 +7,8 @@ import {
   isAllFieldsWasFilled,
 } from "../../tools/validationForm.js";
 import { getMaskedValue } from "../../tools/getMaskedValue";
-import Form from "../form/form.js";
-import InfoPanel from "../infoPanel/infoPanel.js";
+import { Form } from "../form/form.js";
+import { InfoPanel } from "../infoPanel/infoPanel.js";
 
 const UI_FIELDS = [
   {
@@ -80,93 +80,74 @@ const DEFAULT_STATE = {
   techStack: "",
   lastProjectDescription: "",
 };
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: { ...DEFAULT_STATE },
-      invalidList: [],
-      focus: "",
-      pageName: "form",
-    };
-  }
 
-  onChangeHandler = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
+export const App = () => {
+  const [data, setData] = useState({ ...DEFAULT_STATE });
+
+  //Here will be listed names of invalid Fields
+  const [invalidList, setInvalidList] = useState([]);
+  const [pageName, setPageName] = useState("form");
+
+  const onChangeHandler = (e) => {
+    const { name, value } = e.target;
     const isValidValue = isValid(name, value);
 
-    this.setState(({ data, invalidList }) => {
-      const newList = !isValidValue
-        ? getNewInvalidList(invalidList, name, "add")
-        : getNewInvalidList(invalidList, name, "del");
-      if (name === "phone") {
-        let newValue = getMaskedValue(value, data[name]);
-        return {
-          data: { ...data, [name]: newValue },
-          invalidList: [...newList],
-        };
-      }
-      return {
-        data: { ...data, [name]: value },
-        invalidList: [...newList],
-      };
+    /*If value isn't valid, the field's name will be added to InvalidList,
+      If value is correct - will be deleted*/
+    const newList = !isValidValue
+      ? getNewInvalidList(invalidList, name, "add")
+      : getNewInvalidList(invalidList, name, "del");
+    const newValue =
+      name === "phone" ? getMaskedValue(value, data[name]) : value;
+    setData((data) => {
+      return { ...data, [name]: newValue };
     });
+    setInvalidList([...newList]);
   };
 
-  onClickHandler = (e) => {
+  const onSubmitHandler = (e) => {
     e.preventDefault();
-    const name = e.target.name;
-    const { invalidList, data } = this.state;
-    if (name === "submit") {
-      if (invalidList.length === 0 && isAllFieldsWasFilled(data)) {
-        this.setState({
-          pageName: "infoPanel",
-        });
-      } else {
-        this.setState(({ data }) => ({
-          focus: data[0],
-        }));
-      }
-    } else if (name === "reset") {
-      this.setState({
-        data: { ...DEFAULT_STATE },
-        invalidList: [],
-        focus: "",
-        pageName: "form",
-      });
+    //If all fields are correct and filled
+    if (invalidList.length === 0 && isAllFieldsWasFilled(data)) {
+      setPageName("infoPanel");
     }
   };
 
-  render() {
-    const { pageName } = this.state;
-    let page = null;
-    switch (pageName) {
-      case "form":
-        page = (
-          <Form
-            fields={UI_FIELDS}
-            {...this.state}
-            onChangeHandler={this.onChangeHandler}
-            onClickHandler={this.onClickHandler}
-          ></Form>
-        );
-        break;
-      case "infoPanel":
-        page = (
-          <InfoPanel
-            fields={UI_FIELDS}
-            {...this.state}
-            onClickHandler={this.onClickHandler}
-          ></InfoPanel>
-        );
-        break;
-      default:
-        break;
-    }
-
-    return <div className={styles.app}>{page}</div>;
+  const onResetHandler = (e) => {
+    e.preventDefault();
+    setData({ ...DEFAULT_STATE });
+    setInvalidList([]);
+    setPageName("form");
+  };
+  //It is switcher of pages
+  let page = null;
+  switch (pageName) {
+    case "form":
+      page = (
+        <Form
+          fields={UI_FIELDS}
+          data={data}
+          invalidList={invalidList}
+          pageName={pageName}
+          onChangeHandler={onChangeHandler}
+          onSubmitHandler={onSubmitHandler}
+          onResetHandler={onResetHandler}
+        />
+      );
+      break;
+    case "infoPanel":
+      page = (
+        <InfoPanel
+          fields={UI_FIELDS}
+          data={data}
+          invalidList={invalidList}
+          pageName={pageName}
+          onResetHandler={onResetHandler}
+        />
+      );
+      break;
+    default:
+      break;
   }
-}
-
-export default App;
+  return <div className={styles.app}>{page}</div>;
+};
